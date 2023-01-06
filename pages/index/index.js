@@ -8,7 +8,7 @@ Page({
   data: {
     bannerList: [],//轮播图数据
     recommendList: [],//推荐歌单数据
-    topList: [],//热歌榜数据
+    personalizedList: [],//热歌榜数据
   },
 
   /**
@@ -36,21 +36,35 @@ Page({
     this.setData({
       recommendList: recommendListData.result,
     })
-
-    let index = 0
-    let resultArry = []
-    while(index < 5) {
-      let topListData = await request("/top/list", {idx:index++})
-      //splice会修改源数据，slice不会修改与那数据
-      let topListItem = {name: topListData.playlist.name, tracks: topListData.playlist.tracks.slice(0,3)}
-      resultArry.push(topListItem)
-      this.setData({
-        topList: resultArry
-      })
-    }
+    //过期接口
+    // let index = 0
+    // let resultArry = []
+    // while(index < 5) {
+    //   let topListData = await request("/toplist/detail", {idx:index++})
+    //   console.log(topListData);
+    //   //splice会修改源数据，slice不会修改与那数据
+    //   let topListItem = {name: topListData.playlist.name, tracks: topListData.playlist.tracks.slice(0,3)}
+    //   resultArry.push(topListItem)
+    //   this.setData({
+    //     topList: resultArry
+    //   })
+    // }
     // this.setData({
     //   topList: resultArry
     // })
+    let result = await request("/personalized/newsong", {limit:18})
+    console.log(result);
+    let resultArry = []
+    for(let i = 0; i < 18; i+=3) {
+      let recommendMusic = { personalized:result.result.slice(i,i+3)}
+      resultArry.push(recommendMusic)
+    }
+    this.setData({
+      personalizedList: resultArry
+    })
+
+    
+
 
   },
 

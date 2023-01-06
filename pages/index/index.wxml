@@ -48,11 +48,11 @@
       <NavHeader title="排行榜" nav="热歌风向标"></NavHeader>
       <!-- 内容区域 -->
       <swiper class="topListSwiper" circular previous-margin="50rpx" next-margin="50rpx">
-      <swiper-item wx:for="{{topList}}" wx:key="name">
+      <swiper-item wx:for="{{personalizedList}}" wx:key="index">
         <view class="swiperItem">
-          <veiw class="title">{{item.name}}</veiw>
-          <view class="musicItem" wx:for="{{item.tracks}}" wx:key="id" wx:for-item="musicItem">
-            <image src="{{musicItem.al.picUrl}}" mode=""/>
+          <veiw class="title">热门歌曲</veiw>
+          <view class="musicItem" wx:for="{{item.personalized}}" wx:key="index" wx:for-item="musicItem">
+            <image src="{{musicItem.picUrl}}" mode=""/>
             <text class="count">{{index + 1}}</text>
             <text class="musicName">{{musicItem.name}}</text>
           </view>
