@@ -1,4 +1,5 @@
-// pages/personal/personal.js
+// pages/personal/personal.jsi
+import request from "../../utils/request";
 let startY = 0;
 let moveY = 0;
 let moveDistance = 0;
@@ -10,14 +11,38 @@ Page({
   data: {
     coverTransform: "translateY(0)",
     coverTransition: "",
-    userInfo: ""
+    userInfo: "",
+    userRecentPlayList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    let userInfo = wx.getStorageSync('userInfo')
+    if (userInfo) {
+      this.setData({
+        userInfo: JSON.parse(userInfo)
+      })
+    }
+    this.getRecentData(this.data.userInfo.userId)
+  },
+  //获取最近播放记
+  async getRecentData(userId) {
+    console.log();
+    let result = await request("/user/record", {
+      uid: userId,
+      type: 1
+    })
+    //截取10条
+    let index = 1
+    let userRecentPlayList = result.weekData.slice(0, 10).map( item => {
+      item.id = index++
+      return item
+    })
+    this.setData({
+      userRecentPlayList
+    })
   },
   handletouchstart(event) {
     this.setData({
@@ -28,10 +53,10 @@ Page({
   handletouchmove(event) {
     moveY = event.touches[0].clientY
     moveDistance = moveY - startY
-    if (moveDistance < 0 ) {
+    if (moveDistance < 0) {
       return
     }
-    if (moveDistance > 80 ) {
+    if (moveDistance > 80) {
       moveDistance = 80
     }
     this.setData({
@@ -43,7 +68,7 @@ Page({
       coverTransform: "translateY(0)",
       coverTransition: "transform 1s linear"
     })
-    
+
   },
   toLogin() {
     wx.navigateTo({
@@ -55,12 +80,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-    let userInfo =  wx.getStorageSync('userInfo')
-    if(userInfo) {
-      this.setData({
-        userInfo: JSON.parse(userInfo)
-      })
-    }
+
   },
 
   /**
@@ -72,6 +92,10 @@ Page({
 
   /**
    * 生命周期函数--监听页面隐藏
+Info: JSON.parse(userInfo)
+      })
+    }
+生命周期函数--监听页面隐藏
    */
   onHide() {
 

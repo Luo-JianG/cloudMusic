@@ -28,9 +28,12 @@ Page({
 
   //前端验证账号
   async handletap() {
-    let {phone, password} =this.data
+    let {
+      phone,
+      password
+    } = this.data
     //手机是否为空
-    if(!phone) {
+    if (!phone) {
       wx.showToast({
         title: '手机号不能为空',
         icon: 'error'
@@ -38,7 +41,7 @@ Page({
       return
     }
     //手机号格式是否正确
-    let phoneReg= /^1(3|4|5|6|7|8|9)\d{9}$/
+    let phoneReg = /^1(3|4|5|6|7|8|9)\d{9}$/
     if (!phoneReg.test(phone)) {
       wx.showToast({
         title: '手机号格式错误',
@@ -47,7 +50,7 @@ Page({
       return
     }
     //判断密码是否为空
-    if(!password) {
+    if (!password) {
       wx.showToast({
         title: '密码不能为空',
         icon: 'error'
@@ -59,30 +62,34 @@ Page({
     //   title: '前端验证通过',
     //   icon: 'error'
     // })
-    let result = await request("/login/cellphone", {phone, password})
-    if(result.code === 200) {
+    let result = await request("/login/cellphone", {
+      phone,
+      password,
+      login: true
+    })
+    if (result.code === 200) {
       wx.showToast({
         title: '登入成功',
         icon: 'success',
       })
       //将用户信息储存到本地
-      wx.setStorageSync('userInfo',JSON.stringify(result.profile))
+      wx.setStorageSync('userInfo', JSON.stringify(result.profile))
       //跳转只personal页面
       wx.reLaunch({
         url: '/pages/personal/personal',
       })
 
-    }else if(result.code === 400) {
+    } else if (result.code === 400) {
       wx.showToast({
         title: '手机号错误',
         icon: 'error'
       })
-    }else if(result.code === 501 || result.code === 502) {
+    } else if (result.code === 501 || result.code === 502) {
       wx.showToast({
         title: '账号或密码错误',
         icon: 'error'
       })
-    }else {
+    } else {
       wx.showToast({
         title: '登入失败',
         icon: 'error'

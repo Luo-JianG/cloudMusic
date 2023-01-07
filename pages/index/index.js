@@ -6,9 +6,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    bannerList: [],//轮播图数据
-    recommendList: [],//推荐歌单数据
-    personalizedList: [],//热歌榜数据
+    bannerList: [], //轮播图数据
+    recommendList: [], //推荐歌单数据
+    personalizedList: [], //热歌榜数据
   },
 
   /**
@@ -27,12 +27,16 @@ Page({
     //     console.log('请求失败', err);
     //   }
     // })
-    let bannerListData = await request('/banner', {type: 2 })
+    let bannerListData = await request('/banner', {
+      type: 2
+    })
     this.setData({
       bannerList: bannerListData.banners
     })
 
-    let recommendListData = await request('/personalized',{limit:10})
+    let recommendListData = await request('/personalized', {
+      limit: 10
+    })
     this.setData({
       recommendList: recommendListData.result,
     })
@@ -42,7 +46,7 @@ Page({
     // while(index < 5) {
     //   let topListData = await request("/toplist/detail", {idx:index++})
     //   console.log(topListData);
-    //   //splice会修改源数据，slice不会修改与那数据
+    //   //splice会修改源数据，slice不会修改源数据
     //   let topListItem = {name: topListData.playlist.name, tracks: topListData.playlist.tracks.slice(0,3)}
     //   resultArry.push(topListItem)
     //   this.setData({
@@ -52,18 +56,25 @@ Page({
     // this.setData({
     //   topList: resultArry
     // })
-    let result = await request("/personalized/newsong", {limit:18})
-    console.log(result);
+    let result = await request("/personalized/newsong", {
+      limit: 18
+    })
     let resultArry = []
-    for(let i = 0; i < 18; i+=3) {
-      let recommendMusic = { personalized:result.result.slice(i,i+3)}
+    for (let i = 0; i < 18; i += 3) {
+      let recommendMusic = {
+        personalized: result.result.slice(i, i + 3)
+      }
       resultArry.push(recommendMusic)
     }
+    let index = 1
     this.setData({
-      personalizedList: resultArry
+      personalizedList: resultArry.map(item => {
+        item.id = index++
+        return item
+      })
     })
 
-    
+
 
 
   },

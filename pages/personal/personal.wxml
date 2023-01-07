@@ -26,27 +26,23 @@
   </view>
 
 
-  <view class="cover-container"
-  bindtouchstart="handletouchstart"
-  bindtouchmove="handletouchmove"
-  bindtouchend="handletouchend"
-  style="transform: {{coverTransform}}; transition: {{coverTransition}};">
+  <view class="cover-container" bindtouchstart="handletouchstart" bindtouchmove="handletouchmove" bindtouchend="handletouchend" style="transform: {{coverTransform}}; transition: {{coverTransition}};">
     <image class="arc" src="/static/images/personal/arc.png"></image>
     <!-- 个人中心导航 -->
     <view class="nav-section">
-      <view class="nav-item"  hover-class="common-hover"  hover-stay-time="50">
+      <view class="nav-item" hover-class="common-hover" hover-stay-time="50">
         <text class="iconfont icon-xiaoxi"></text>
         <text>我的消息</text>
       </view>
-      <view class="nav-item"   hover-class="common-hover" hover-stay-time="50">
+      <view class="nav-item" hover-class="common-hover" hover-stay-time="50">
         <text class="iconfont icon-myRecommender"></text>
         <text>我的好友</text>
       </view>
-      <view class="nav-item"  hover-class="common-hover"  hover-stay-time="50">
+      <view class="nav-item" hover-class="common-hover" hover-stay-time="50">
         <text class="iconfont icon-gerenzhuye"></text>
         <text>个人主页</text>
       </view>
-      <view class="nav-item" hover-class="common-hover"  hover-stay-time="50">
+      <view class="nav-item" hover-class="common-hover" hover-stay-time="50">
         <text class="iconfont icon-gexingzhuangban"></text>
         <text>个性装扮</text>
       </view>
@@ -57,6 +53,14 @@
       <view class="recentPlayContainer">
         <text class="title">最近播放</text>
         <!-- 最近播放记录 -->
+        <scroll-view wx:if="{{userRecentPlayList.length}}" scroll-x class="recentScroll" enable-flex>
+          <view class="recentItem" wx:for="{{userRecentPlayList}}" wx:key="id">
+            <image src="{{item.song.al.picUrl}}" mode="" />
+          </view>
+        </scroll-view>
+        <view wx:else style="padding-left: 20rpx; font-size: 26rpx;">
+          暂无播放记录
+        </view>
       </view>
 
       <view class="cardList">
@@ -77,4 +81,3 @@
   </view>
 
 </view>
-
