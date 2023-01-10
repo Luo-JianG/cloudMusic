@@ -16,12 +16,12 @@
     </view>
   </scroll-view>
   <!-- 视频区域 -->
-  <scroll-view 	bindscrolltolower="handleToLower"	refresher-triggered="{{isTriggered}}"	refresher-enabled	bindrefresherrefresh="handleRefresher" class="videoScroll" scroll-y>
+  <scroll-view bindscrolltolower="handleToLower" refresher-triggered="{{isTriggered}}" refresher-enabled bindrefresherrefresh="handleRefresher" class="videoScroll" scroll-y>
     <view class="videoItem" wx:for="{{videoList}}" wx:key="id">
-      <video 	bindended="handleEnded" bindtimeupdate="handleTimeUpdata" object-fit="cover" wx:if="{{item.data.vid === videoId}}" class="common" id="{{item.data.vid}}" bindplay="handlePlay" src="{{item.data.urlInfo}}" poster="{{item.data.coverUrl}}" />
+      <video bindended="handleEnded" bindtimeupdate="handleTimeUpdata" object-fit="cover" wx:if="{{item.data.vid === videoId}}" class="common" id="{{item.data.vid}}" bindplay="handlePlay" src="{{item.data.urlInfo}}" poster="{{item.data.coverUrl}}" />
 
       <!-- 性能优化 -->
-      <image wx:else id="{{item.data.vid}}" bindtap="handlePlay" class="common" src="{{item.data.coverUrl}}" mode=""/>
+      <image wx:else id="{{item.data.vid}}" bindtap="handlePlay" class="common" src="{{item.data.coverUrl}}" mode="" />
 
       <view class="content">{{item.data.title}}</view>
 

@@ -194,20 +194,36 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    console.log("页面下拉刷新");
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-
+    console.log("页面上拉触底函数");
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage() {
+  onShareAppMessage({
+    from
+  }) {
+    console.log(from);
+    if (from === "button") {
+      return {
+        title: "来自button的转发",
+        path: "/pages/video/video",
+        imageUrl: "/static/images/nvsheng.jpg"
+      }
+    } else {
+      return {
+        title: "来自menu的转发",
+        path: "/pages/video/video",
+        imageUrl: "/static/images/nvsheng.jpg"
+      }
+    }
 
   }
 })
