@@ -1,7 +1,7 @@
 <view class="recommendSongContainer">
   <!-- 头部区域 -->
   <view class="header">
-    <image src="/static/images/recommendSong/recommendSong.jpg" mode=""/>
+    <image src="/static/images/recommendSong/recommendSong.jpg" mode="" />
     <view class="date">
       <text class="day">{{day}} / </text>
       <text class="month">{{month}}</text>
@@ -16,8 +16,8 @@
 
     <!-- 内容区 -->
     <scroll-view scroll-y class="scrollList">
-      <view class="scrollItem" wx:for="{{recommendMusicList}}" wx:key="id">
-        <image src="{{item.al.picUrl}}" mode=""/>
+      <view class="scrollItem" wx:for="{{recommendMusicList}}" wx:key="id" bindtap="toSongDetail" data-song="{{item}}">
+        <image src="{{item.al.picUrl}}" mode="" />
         <view class="musicInfo">
           <text class="musicName">{{item.al.name}}</text>
           <text class="musicAuthor">{{item.ar[0].name}}</text>

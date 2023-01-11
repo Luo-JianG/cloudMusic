@@ -44,6 +44,13 @@ Page({
     })
   },
 
+  //点击歌曲，跳转至songDetail页面
+  toSongDetail(event) {
+    let songId = event.currentTarget.dataset.song.al.id
+    wx.navigateTo({
+      url: '/pages/songDetail/songDetail?songId='+songId,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
