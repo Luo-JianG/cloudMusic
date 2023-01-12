@@ -46,7 +46,7 @@ Page({
 
   //点击歌曲，跳转至songDetail页面
   toSongDetail(event) {
-    let songId = event.currentTarget.dataset.song.al.id
+    let songId = event.currentTarget.dataset.song.id
     wx.navigateTo({
       url: '/pages/songDetail/songDetail?songId='+songId,
     })

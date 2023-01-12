@@ -19,7 +19,7 @@
       <view class="scrollItem" wx:for="{{recommendMusicList}}" wx:key="id" bindtap="toSongDetail" data-song="{{item}}">
         <image src="{{item.al.picUrl}}" mode="" />
         <view class="musicInfo">
-          <text class="musicName">{{item.al.name}}</text>
+          <text class="musicName">{{item.name}}</text>
           <text class="musicAuthor">{{item.ar[0].name}}</text>
         </view>
         <text class="iconfont icon-gengduo-shuxiang "></text>
