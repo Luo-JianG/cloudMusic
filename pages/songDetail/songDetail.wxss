@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
 }
+
 /* 底座 */
 .circle {
   z-index: 100;
@@ -14,6 +15,7 @@
   background: #fff;
   border-radius: 50%;
 }
+
 /* 摇杆 */
 .needle {
   position: relative;
@@ -26,10 +28,12 @@
   transform: rotate(-20deg);
   transition: transform 1s;
 }
+
 .needleRotate {
   transform: rotate(0);
 
 }
+
 /* 磁盘区域 */
 .discContainer {
   position: relative;
@@ -37,20 +41,25 @@
   width: 598rpx;
   height: 598rpx;
 }
+
 .discAnimation {
   animation: disc 4.5s linear infinite;
   animation-delay: 1s;
 }
+
 @keyframes disc {
-  from{}
+  from {}
+
   to {
     transform: rotate(360deg);
   }
 }
+
 .discContainer .disc {
   width: 100%;
   height: 100%;
 }
+
 .discContainer .musicImg {
   position: absolute;
   top: 0;
@@ -72,6 +81,7 @@
   border-top: 1rpx solid #fff;
   display: flex;
 }
+
 .musicContainer text {
   width: 20%;
   height: 120rpx;
@@ -80,6 +90,7 @@
   font-size: 50rpx;
   color: #fff;
 }
+
 .musicContainer text.big {
   font-size: 80rpx;
 }

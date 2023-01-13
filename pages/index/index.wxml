@@ -34,31 +34,31 @@
     <!-- 头部区域 -->
     <NavHeader title="推荐歌曲" nav="为你精心推荐"></NavHeader>
     <!-- 内容区 -->
-    <scroll-view class="recommendScroll" 	enable-flex scroll-x>
-    <view class="scrollItem" wx:for="{{recommendList}}" wx:key="id" wx:for-item="recommendItem">
-      <image src="{{recommendItem.picUrl}}" mode=""/>
-      <text>{{recommendItem.name}}</text>
-    </view>
-  </scroll-view>
+    <scroll-view class="recommendScroll" enable-flex scroll-x>
+      <view class="scrollItem" wx:for="{{recommendList}}" wx:key="id" wx:for-item="recommendItem">
+        <image src="{{recommendItem.picUrl}}" mode="" />
+        <text>{{recommendItem.name}}</text>
+      </view>
+    </scroll-view>
   </view>
 
   <!-- 排行榜区域 -->
   <view class="topList">
-      <!-- 头部区域 -->
-      <NavHeader title="排行榜" nav="热歌风向标"></NavHeader>
-      <!-- 内容区域 -->
-      <swiper class="topListSwiper" circular previous-margin="50rpx" next-margin="50rpx">
+    <!-- 头部区域 -->
+    <NavHeader title="排行榜" nav="热歌风向标"></NavHeader>
+    <!-- 内容区域 -->
+    <swiper class="topListSwiper" circular previous-margin="50rpx" next-margin="50rpx">
       <swiper-item wx:for="{{personalizedList}}" wx:key="id">
         <view class="swiperItem">
           <veiw class="title">热门歌曲</veiw>
           <view class="musicItem" wx:for="{{item.personalized}}" wx:key="id" wx:for-item="musicItem">
-            <image src="{{musicItem.picUrl}}" mode=""/>
+            <image src="{{musicItem.picUrl}}" mode="" />
             <text class="count">{{index + 1}}</text>
             <text class="musicName">{{musicItem.name}}</text>
           </view>
         </view>
       </swiper-item>
-      </swiper>
+    </swiper>
   </view>
 
 

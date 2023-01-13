@@ -36,7 +36,7 @@ Page({
     })
     //截取10条
     let index = 1
-    let userRecentPlayList = result.weekData.slice(0, 10).map( item => {
+    let userRecentPlayList = result.weekData.slice(0, 10).map(item => {
       item.id = index++
       return item
     })

@@ -6,8 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    day: "",//日
-    month: "",//月
+    day: "", //日
+    month: "", //月
     recommendMusicList: []
   },
 
@@ -17,13 +17,13 @@ Page({
   onLoad(options) {
     //判断用户是否登入
     let cookie = wx.getStorageSync('cookies')
-    if(!cookie) {
+    if (!cookie) {
       wx.showToast({
         title: "请先登入",
         icon: "error",
         success: () => {
           wx.reLaunch({
-            url:"/pages/login/login"
+            url: "/pages/login/login"
           })
         }
       })
@@ -48,7 +48,7 @@ Page({
   toSongDetail(event) {
     let songId = event.currentTarget.dataset.song.id
     wx.navigateTo({
-      url: '/pages/songDetail/songDetail?songId='+songId,
+      url: '/pages/songDetail/songDetail?songId=' + songId,
     })
   },
   /**
