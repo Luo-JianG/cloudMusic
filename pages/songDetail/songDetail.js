@@ -1,4 +1,6 @@
 // pages/songDetail/songDetail.js
+import PubSub from "pubsub-js"
+import moment from "moment"
 import request from "../../utils/request"
 //获取小程序全局唯一的app实例
 let appInstance = getApp()
@@ -10,7 +12,10 @@ Page({
   data: {
     isPlay: false,
     song: {},
-    songId: ''
+    songId: '',
+    songLink: '', //歌曲的播放链接
+    currentTime: '00:00', //进度条目前进度时间
+    durationTime: '00:00', //歌曲总时间
   },
 
   /**
@@ -56,8 +61,10 @@ Page({
     let songData = await request("/song/detail", {
       ids: songId
     })
+    let durationTime = moment(songData.songs[0].dt).format("mm:ss")
     this.setData({
-      song: songData.songs[0]
+      song: songData.songs[0],
+      durationTime
     })
     //动态设置页面的标题
     wx.setNavigationBarTitle({
@@ -68,25 +75,50 @@ Page({
   handleMusicPlay() {
     let isPlay = !this.data.isPlay
     let {
-      songId
+      songId,
+      songLink
     } = this.data
     // this.setData({
     //   isPlay
     // })
-    this.musicControl(isPlay, songId)
+    this.musicControl(isPlay, songId, songLink)
   },
   //歌曲播放/暂停的功能
-  async musicControl(isPlay, songId) {
-    let songUrlData = await request("/song/url", {
-      id: songId
-    })
-    let songLink = songUrlData.data[0].url
+  async musicControl(isPlay, songId, songLink) {
+    if(!songLink) {
+      //获取音乐的播放链接
+      let songUrlData = await request("/song/url", {
+        id: songId
+      })
+      songLink = songUrlData.data[0].url
+      this.setData({
+        songLink
+      })
+    }
     if (isPlay) {
       this.backgroundAudioManager.src = songLink
       this.backgroundAudioManager.title = this.data.song.name
     } else {
       this.backgroundAudioManager.pause()
     }
+  },
+  //点击切歌的回调
+  handleSwitch(event) {
+    //先停止音乐的播放在进行切歌
+    this.backgroundAudioManager.stop()
+    let type = event.currentTarget.id
+    //订阅来自recommendSong页面的回调
+    PubSub.subscribe("musicId", (msg, data) => {
+
+      //获取音乐详情信息
+      this.getSongDetail(data)
+      //切歌后自动播放当前音乐
+      this.musicControl(true, data)
+
+      PubSub.unsubscribe("musicId")
+    })
+    //发布消息给recommendSong页面
+    PubSub.publish("switchType",type)
   },
 
 
