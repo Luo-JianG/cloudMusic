@@ -48,6 +48,17 @@ Page({
     this.backgroundAudioManager.onStop(() => {
       this.changeMusicState(false)
     })
+
+    //监听音乐播放进度的事件
+    this.backgroundAudioManager.onTimeUpdate(() => {
+      // console.log(this.backgroundAudioManager.duration);
+      // console.log(this.backgroundAudioManager.currentTime);
+      let currentTime = moment(this.backgroundAudioManager.currentTime * 1000).format("mm:ss")
+      this.setData({
+        currentTime
+      })
+    })
+
   },
   //修改音乐状态的功能函数
   changeMusicState(isPlay) {
@@ -85,7 +96,7 @@ Page({
   },
   //歌曲播放/暂停的功能
   async musicControl(isPlay, songId, songLink) {
-    if(!songLink) {
+    if (!songLink) {
       //获取音乐的播放链接
       let songUrlData = await request("/song/url", {
         id: songId
@@ -118,7 +129,7 @@ Page({
       PubSub.unsubscribe("musicId")
     })
     //发布消息给recommendSong页面
-    PubSub.publish("switchType",type)
+    PubSub.publish("switchType", type)
   },
 
 
