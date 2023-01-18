@@ -16,6 +16,7 @@ Page({
     songLink: '', //歌曲的播放链接
     currentTime: '00:00', //进度条目前进度时间
     durationTime: '00:00', //歌曲总时间
+    currentWidth: 0, //进度条长度
   },
 
   /**
@@ -54,8 +55,20 @@ Page({
       // console.log(this.backgroundAudioManager.duration);
       // console.log(this.backgroundAudioManager.currentTime);
       let currentTime = moment(this.backgroundAudioManager.currentTime * 1000).format("mm:ss")
+      let currentWidth = this.backgroundAudioManager.currentTime / this.backgroundAudioManager.duration * 450
       this.setData({
-        currentTime
+        currentTime,
+        currentWidth
+      })
+    })
+    //监听音乐自然播放结束事件
+    this.backgroundAudioManager.onEnded(() => {
+      // 切换至下一首歌曲
+      this.switchMusic("next")
+      //将进度条长度还原为0
+      this.setData({
+        cuurentWitdt: 0,
+        currentTime: '00:00'
       })
     })
 
@@ -118,6 +131,11 @@ Page({
     //先停止音乐的播放在进行切歌
     this.backgroundAudioManager.stop()
     let type = event.currentTarget.id
+    //切换歌曲
+    this.switchMusic(type)
+  },
+  //切换歌曲的功能函数
+  switchMusic(type) {
     //订阅来自recommendSong页面的回调
     PubSub.subscribe("musicId", (msg, data) => {
 
