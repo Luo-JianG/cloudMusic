@@ -1,0 +1,26 @@
+<view class="searchContainer">
+<!-- 头部区域 -->
+  <view class="header">
+    <view class="search">
+      <text class="iconfont icon-search"></text>
+      <input type="text" placeholder="{{placeholderContent}}" placeholder-class="placeholder" bindinput="handleInputChange" />
+    </view>
+    <view class="cancel">
+      取消
+    </view>
+  </view>
+
+  <!-- 热搜榜区域 -->
+  <view class="hotContainer">
+    <view class="hotTitle">
+      热搜榜
+    </view>
+    <view class="hotList">
+      <view class="hotItem"  wx:for="{{hotList}}" wx:key="searchWord">
+        <text class="order">{{index + 1}}</text>
+        <text>{{item.searchWord}}</text>
+        <image class="iconImg" src="{{item.iconUrl}}" mode=""/>
+      </view>
+    </view>
+  </view>
+</view>
