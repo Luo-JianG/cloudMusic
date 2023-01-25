@@ -1,5 +1,5 @@
 <view class="searchContainer">
-<!-- 头部区域 -->
+  <!-- 头部区域 -->
   <view class="header">
     <view class="search">
       <text class="iconfont icon-search"></text>
@@ -10,17 +10,43 @@
     </view>
   </view>
 
-  <!-- 热搜榜区域 -->
-  <view class="hotContainer">
-    <view class="hotTitle">
-      热搜榜
-    </view>
-    <view class="hotList">
-      <view class="hotItem"  wx:for="{{hotList}}" wx:key="searchWord">
-        <text class="order">{{index + 1}}</text>
-        <text>{{item.searchWord}}</text>
-        <image class="iconImg" src="{{item.iconUrl}}" mode=""/>
+  <block wx:if="{{searchList.length}}">
+    <!-- 搜索内容展示 -->
+    <view class="showSearchContainer">
+      <view class="searchContent">
+        搜索内容：{{searchContent}}
+      </view>
+      <view class="searchList">
+        <view class="searchItem" wx:for="{{searchList}}" wx:key="id">
+          <text class="iconfont icon-search"></text>
+          <text class="content">{{item.name}}</text>
+        </view>
       </view>
     </view>
-  </view>
+  </block>
+
+  <block wx:else>
+    <!-- 搜索记录区域 -->
+    <view class="history">
+      <view class="title">历史</view>
+      <view class="historyItem" wx:for="{{historyList}}" wx:key="{{item}}">
+        {{item}}
+      </view>
+      <text class="iconfont icon-shanchu delete"></text>
+    </view>
+    <!-- 热搜榜区域 -->
+    <view class="hotContainer">
+      <view class="hotTitle">
+        热搜榜
+      </view>
+      <view class="hotList">
+        <view class="hotItem" wx:for="{{hotList}}" wx:key="searchWord">
+          <text class="order">{{index + 1}}</text>
+          <text>{{item.searchWord}}</text>
+          <image class="iconImg" src="{{item.iconUrl}}" mode="" />
+        </view>
+      </view>
+    </view>
+  </block>
+
 </view>

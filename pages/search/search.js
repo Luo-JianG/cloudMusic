@@ -10,14 +10,19 @@ Page({
     hotList: [], //热搜榜的数据
     searchContent: "", //搜索框的内容
     searchList: [], //模糊搜索获取的数据
+    historyList: [], //搜索历史记录数据
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    //获取初始化数据
     this.getInitData()
+    //获取历史记录
+    this.getHistoryList()
   },
+
   //获取初始化数据的函数
   async getInitData() {
     let placeholderContent = await request("/search/default")
@@ -26,6 +31,16 @@ Page({
       placeholderContent: placeholderContent.data.showKeyword,
       hotList: hotListData.data
     })
+  },
+
+  //获取本地历史搜索记录
+  getHistoryList() {
+    let historyList = wx.getStorageSync('historyListData')
+    // if(historyList) {
+    //   this.setData({
+    //     historyList
+    //   })
+    // }
   },
 
   //发送请求关键字获取模糊匹配数据
@@ -43,14 +58,27 @@ Page({
       isSend = false
     }, 300);
   },
+
   //获取模糊匹配的数据的功能函数
   async getSearchList() {
+    if (!this.data.searchContent) {
+      this.setData({
+        searchList: []
+      })
+      return
+    }
+    let {
+      searchContent,
+      historyList
+    } = this.data
     let searchListData = await request("/search", {
-      keywords: this.data.searchContent,
+      keywords: searchContent,
       limit: 10
     })
+    historyList.unshift(searchContent)
+    wx.setStorageSync('historyListData', historyList)
     this.setData({
-      searchList: searchListData.result.songs
+      searchList: searchListData.result.songs,
     })
   },
 
