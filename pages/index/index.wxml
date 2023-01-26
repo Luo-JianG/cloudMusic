@@ -11,9 +11,9 @@
       <text class="iconfont icon-tuijian"></text>
       <text>每日推荐</text>
     </veiw>
-    <veiw class="navItem">
+    <veiw class="navItem" bindtap="toOther">
       <text class="iconfont icon-gedan"></text>
-      <text>歌单</text>
+      <text>other</text>
     </veiw>
     <veiw class="navItem">
       <text class="iconfont icon-31paixingbang"></text>

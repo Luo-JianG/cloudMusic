@@ -1,7 +1,7 @@
 // pages/songDetail/songDetail.js
 import PubSub from "pubsub-js"
 import moment from "moment"
-import request from "../../utils/request"
+import request from "../../../utils/request"
 //获取小程序全局唯一的app实例
 let appInstance = getApp()
 Page({

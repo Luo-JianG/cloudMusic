@@ -81,7 +81,14 @@ Page({
   //点击导航区每日推荐跳转至每日推荐页
   toRecommendSong() {
     wx.navigateTo({
-      url: '/pages/recommendSong/recommendSong',
+      url: '/songPackage/pages/recommendSong/recommendSong',
+    })
+  },
+
+  //跳转至Other页面
+  toOther() {
+    wx.navigateTo({
+      url: '/otherPackage/pages/other/other',
     })
   },
 

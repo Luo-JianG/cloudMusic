@@ -1,3 +1,7 @@
+@import "/static/iconfont/iconfont.wxss";
+page {
+  height: 100%;
+}
 .songDetailContainer {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);

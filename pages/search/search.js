@@ -36,11 +36,11 @@ Page({
   //获取本地历史搜索记录
   getHistoryList() {
     let historyList = wx.getStorageSync('historyListData')
-    // if(historyList) {
-    //   this.setData({
-    //     historyList
-    //   })
-    // }
+    if (historyList) {
+      this.setData({
+        historyList
+      })
+    }
   },
 
   //发送请求关键字获取模糊匹配数据
@@ -75,10 +75,46 @@ Page({
       keywords: searchContent,
       limit: 10
     })
-    historyList.unshift(searchContent)
-    wx.setStorageSync('historyListData', historyList)
     this.setData({
       searchList: searchListData.result.songs,
+    })
+    //判断搜索记录是否相同
+    if (historyList.indexOf(searchContent)) {
+      historyList.splice(historyList.indexOf(searchContent), 1)
+    }
+    historyList.unshift(searchContent);
+    this.setData({
+      historyList
+    })
+    wx.setStorageSync('historyListData', historyList)
+
+  },
+
+  //清空搜索框的回调
+  handleClear() {
+    this.setData({
+      searchContent: '',
+      searchList: []
+    })
+  },
+
+  //清除历史记录的回调
+  clearSearchHistory() {
+    wx.showModal({
+      title: '是否清除搜索历史记录',
+      complete: (res) => {
+        //点击取消
+        if (res.cancel) {
+
+        }
+        //点击确认
+        if (res.confirm) {
+          this.setData({
+            historyList: []
+          })
+          wx.removeStorageSync('historyListData')
+        }
+      }
     })
   },
 

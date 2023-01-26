@@ -161,6 +161,12 @@ Page({
     this.getVideoListData(this.data.navId, offset++)
     console.log(offset);
   },
+  //点击搜索音乐
+  toSearch() {
+    wx.navigateTo({
+      url: '/pages/search/search',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
