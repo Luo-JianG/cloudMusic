@@ -1,0 +1,11 @@
+<import src="/template/myTemplate/myTemplate"/>
+<view class="otherContainer">
+  <view class="otherTitle">
+    测试使用模板
+  </view>
+  <template is="myTem" data="{{...person}}"/>
+  <view>
+    测试获取用户openid
+  </view>
+  <button bindtap="handleGetOpenid">获取用户openid</button>
+</view>
